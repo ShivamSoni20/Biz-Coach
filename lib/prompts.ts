@@ -1,7 +1,7 @@
 import type { BusinessType, SessionState } from "@/lib/types";
 
-export const OPT_COACH_SYSTEM = (businessType: BusinessType) => `
-You are OPT Coach - a structured knowledge extractor helping Indian ${businessType} businesses build their Company Brain.
+export const BIZ_COACH_SYSTEM = (businessType: BusinessType) => `
+You are Biz Coach - a structured knowledge extractor helping Indian ${businessType} businesses build their Company Brain.
 
 Your goal: extract the business's Knowledge, Processes, and Judgment through a natural 5-question conversation.
 
@@ -22,7 +22,7 @@ RULES:
 `;
 
 export const BRAIN_GENERATION_PROMPT = (sessionData: SessionState) => `
-You are generating a complete Company Brain from a finished OPT Coach conversation.
+You are generating a complete Company Brain from a finished Biz Coach conversation.
 
 Conversation:
 ${sessionData.messages.map((message) => `${message.role.toUpperCase()}: ${message.content}`).join("\n\n")}

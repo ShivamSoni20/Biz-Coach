@@ -38,7 +38,7 @@ export function ChatInput({
       onSubmit={handleSubmit}
     >
       <label className="sr-only" htmlFor="coach-input">
-        Answer the current OPT Coach question
+        Answer the current Biz Coach question
       </label>
       <div className="mx-auto flex max-w-4xl flex-col gap-3 rounded-2xl border border-sage/30 bg-white/80 p-3 shadow-sm sm:flex-row sm:items-end">
         <textarea

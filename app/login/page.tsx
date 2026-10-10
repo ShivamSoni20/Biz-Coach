@@ -17,10 +17,10 @@ export default function LoginPage({
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
           <Link href="/" className="flex items-center gap-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-gradient-to-br from-teal to-green-dk text-base shadow-glow">
-              OPT
+              BC
             </div>
             <div>
-              <p className="font-display text-[15px] text-ink">OPT Coach</p>
+              <p className="font-display text-[15px] text-ink">Biz Coach</p>
               <p className="text-[10px] tracking-wide text-ink-lt">Company Brain Builder</p>
             </div>
           </Link>

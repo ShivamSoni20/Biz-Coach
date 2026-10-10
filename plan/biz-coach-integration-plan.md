@@ -4,7 +4,7 @@ Goal: turn Biz Coach from a solid hackathon build into a portfolio centerpiece f
 Applied AI Engineer / AI Engineer / FDE roles — LangChain RAG, LangGraph multi-agent
 orchestration, an agent harness, and an eval suite, all at zero cost (OpenRouter free tier).
 
-## Phase 0 — Rename OPT Coach → Biz Coach ✅ DONE
+## Phase 0 — Rebrand to Biz Coach ✅ DONE
 
 - Full repo rename applied across 19 files (`Biz Coach` brand, `BIZ_COACH_SYSTEM`
   constant, `BC` logo badges, `biz-coach` package name, pitch deck + slide route renamed).

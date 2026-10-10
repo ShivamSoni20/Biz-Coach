@@ -3,8 +3,8 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/optcoachslides",
-        destination: "/opt-coach-pitch-deck.html"
+        source: "/bizcoachslides",
+        destination: "/biz-coach-pitch-deck.html"
       }
     ];
   }

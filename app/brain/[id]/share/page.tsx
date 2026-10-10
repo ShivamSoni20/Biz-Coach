@@ -74,7 +74,7 @@ export default async function ShareBrainPage({
         </div>
 
         <div className="mt-12 rounded-[20px] border border-teal/20 bg-gradient-to-br from-teal-pale/60 to-sage-pale/40 p-6 text-center">
-          <p className="text-[14px] font-medium text-ink">Built with OPT Coach</p>
+          <p className="text-[14px] font-medium text-ink">Built with Biz Coach</p>
           <p className="mt-1.5 text-[13px] text-ink-lt">
             Turn your business&apos;s tribal knowledge into an AI-ready Company Brain in 20 minutes.
           </p>

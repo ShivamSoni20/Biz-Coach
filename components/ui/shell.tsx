@@ -78,11 +78,11 @@ export function PageNav() {
           <div className="relative flex h-11 w-11 items-center justify-center rounded-[15px] bg-gradient-to-br from-ink via-green-dk to-teal text-[12px] font-semibold tracking-[-0.04em] text-white shadow-glow transition-all duration-300 group-hover:-translate-y-0.5 group-hover:rotate-[-2deg] group-hover:shadow-lg">
             <span className="absolute inset-0 rounded-[15px] border border-white/25" />
             <span className="absolute -right-1 -top-1 h-3 w-3 rounded-full border-2 border-[#f7f4ee] bg-coral" />
-            OPT
+            BC
           </div>
           <div>
             <p className="font-display text-[18px] leading-none tracking-[-0.03em] text-ink transition-colors group-hover:text-green-dk">
-              OPT Coach
+              Biz Coach
             </p>
             <p className="mt-1 text-[10px] tracking-[0.12em] text-ink-lt">Company Brain Builder</p>
           </div>

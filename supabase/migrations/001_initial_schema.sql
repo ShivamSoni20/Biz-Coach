@@ -1,7 +1,7 @@
 -- Enable UUID extension
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
--- Sessions table (stores the OPT Coach conversation state)
+-- Sessions table (stores the Biz Coach conversation state)
 CREATE TABLE IF NOT EXISTS sessions (
   id            TEXT PRIMARY KEY,
   business_type TEXT NOT NULL CHECK (business_type IN ('agency','freelancer','consultant','startup')),

@@ -28,9 +28,9 @@ export default async function BrainPage({
           <div className="p-6">
             <div className="mb-6 flex items-center gap-2.5">
               <div className="flex h-8 w-8 items-center justify-center rounded-[9px] bg-gradient-to-br from-teal to-green-dk text-sm font-semibold text-foreground shadow-glow">
-                OPT
+                BC
               </div>
-              <span className="font-display text-[15px] text-ink">OPT Coach</span>
+              <span className="font-display text-[15px] text-ink">Biz Coach</span>
             </div>
 
             <div className="mb-6 rounded-2xl border border-teal/20 bg-gradient-to-br from-teal-pale/60 to-sage-pale/50 p-4">
@@ -49,7 +49,7 @@ export default async function BrainPage({
             </div>
 
             <div className="mb-5 space-y-2">
-              <p className="mb-2 text-[9px] font-semibold uppercase tracking-[0.15em] text-ink-lt">OPT Status</p>
+              <p className="mb-2 text-[9px] font-semibold uppercase tracking-[0.15em] text-ink-lt">Brain Status</p>
               {[
                 { label: "Operating Model", color: "bg-teal-pale border-teal/25 text-green-dk" },
                 { label: "Processes", color: "bg-wheat-lt border-wheat/35 text-amber-700" },

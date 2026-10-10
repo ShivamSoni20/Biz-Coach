@@ -213,7 +213,7 @@ export default function CoachPage() {
         <header className="border-b border-sage/30 bg-[rgba(247,244,238,.88)] px-4 py-4 backdrop-blur-md sm:px-6">
           <div className="mx-auto flex max-w-7xl flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <p className="font-display text-[15px] text-ink">OPT Coach</p>
+              <p className="font-display text-[15px] text-ink">Biz Coach</p>
               <p className="text-[12px] text-ink-lt">
                 {businessName || "Untitled business"} · {businessTypeLabels[businessType]} · {questionsAnswered}/5 answered
               </p>

@@ -16,7 +16,7 @@ const bentoItems = [
     span: "lg:col-span-3 lg:row-span-2",
     accent: true,
     icon: "💬",
-    title: "5-question OPT flow",
+    title: "5-question guided flow",
     desc: "A guided coach that pulls out your operating model, workflows, and judgment criteria without turning the founder into a prompt engineer. One question at a time, adapted to your business type.",
     tags: ["Operating Model", "Processes", "Tasks"]
   },
@@ -119,7 +119,7 @@ export default function LandingPage() {
             </h1>
 
             <p className="mt-5 max-w-lg text-pretty text-[17px] font-light leading-[1.75] text-ink-md">
-              OPT Coach guides Indian service businesses through{" "}
+              Biz Coach guides Indian service businesses through{" "}
               <strong className="font-medium text-ink">5 structured questions</strong> and
               auto-generates their SOPs, judgment layer, and a live AI-ready Company Brain endpoint.
             </p>

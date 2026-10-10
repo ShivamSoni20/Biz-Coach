@@ -77,7 +77,7 @@ export function LoginForm({ redirectTo }: { redirectTo: string }) {
         Secure access
       </p>
       <h1 className="mt-4 font-display text-[34px] tracking-[-0.03em] text-ink">
-        {mode === "login" ? "Login to OPT Coach" : "Create your account"}
+        {mode === "login" ? "Login to Biz Coach" : "Create your account"}
       </h1>
       <p className="mt-2 text-[14px] leading-6 text-ink-lt">
         Save your Company Brain sessions with Supabase auth before starting the coaching flow.

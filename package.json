@@ -10,6 +10,7 @@
     "eval": "ts-node -r tsconfig-paths/register -O \"{\\\"module\\\":\\\"commonjs\\\"}\" scripts/eval/run-eval.ts"
   },
   "dependencies": {
+    "@langchain/langgraph": "^1.4.21",
     "@supabase/supabase-js": "^2.106.2",
     "@vercel/analytics": "^2.0.1",
     "nanoid": "^5.0.7",

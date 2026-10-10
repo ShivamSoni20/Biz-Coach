@@ -27,10 +27,10 @@ const dmMono = DM_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "OPT Coach - Company Brain Builder",
+  title: "Biz Coach - Company Brain Builder",
   description: "Turn tribal knowledge into an AI-ready company brain in 20 minutes.",
   openGraph: {
-    title: "OPT Coach - Company Brain Builder",
+    title: "Biz Coach - Company Brain Builder",
     description: "5 questions. 3 structured files. 1 live API endpoint your team can query on day one.",
     type: "website"
   }

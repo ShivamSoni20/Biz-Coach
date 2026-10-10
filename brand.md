@@ -1,4 +1,4 @@
-# Brand - OPT Coach
+# Brand - Biz Coach
 
 _Status: deferred_
 

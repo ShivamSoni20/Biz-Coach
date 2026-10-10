@@ -139,7 +139,7 @@ export default function OnboardPage() {
             disabled={!businessName.trim()}
             onClick={handleContinue}
           >
-            Continue to OPT Coach
+            Continue to Biz Coach
           </Button>
         </div>
         </div>
