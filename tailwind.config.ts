@@ -14,20 +14,24 @@ const config: Config = {
         mono:    ["DM Mono", "Fira Code", "Menlo", "Monaco", "monospace"],
       },
       colors: {
-        sage:       { DEFAULT: "#b8d4b0", lt: "#d4ead0", pale: "#eef5ec" },
-        teal:       { DEFAULT: "#4dc8bd", lt: "#7dd9d2", pale: "#e0f5f3" },
-        wheat:      { DEFAULT: "#ddc89a", lt: "#ede2c2" },
-        coral:      { DEFAULT: "#e8714a", lt: "#f4a98a", pale: "#fce8e0" },
-        mint:       { DEFAULT: "#b8e8e0", lt: "#daf3ef" },
-        cream:      { DEFAULT: "#f0ece0", dk: "#e5dfc9" },
-        "green-dk": "#5a9e7a",
-        "green-md": "#7bbf96",
-        ink: {
-          DEFAULT: "#2a2d24",
-          md:      "#4a5042",
-          lt:      "#7a8270",
+        ivory: {
+          DEFAULT: "#FAF6ED",
+          dk:      "#EFE6D2",
+          deep:    "#E7DCC0",
         },
-        // shadcn HSL vars (keep for component compat)
+        gold: {
+          DEFAULT: "#C9A44A",
+          dk:      "#A07E2E",
+          lt:      "#E2C37C",
+          pale:    "#F7EDD2",
+        },
+        navy: {
+          DEFAULT: "#0F2040",
+          md:      "#1E3358",
+          lt:      "#5B6B8C",
+        },
+        coral: { DEFAULT: "#e8714a", lt: "#f4a98a", pale: "#fce8e0" },
+        // shadcn HSL vars
         background:  "hsl(var(--background))",
         foreground:  "hsl(var(--foreground))",
         card:        { DEFAULT: "hsl(var(--card))",    foreground: "hsl(var(--card-foreground))" },
@@ -51,10 +55,10 @@ const config: Config = {
         "4xl": "2rem",
       },
       boxShadow: {
-        sm:   "0 1px 4px rgba(42,45,36,.05), 0 2px 8px rgba(42,45,36,.04)",
-        md:   "0 4px 16px rgba(42,45,36,.08), 0 8px 24px rgba(42,45,36,.05)",
-        lg:   "0 8px 32px rgba(42,45,36,.10), 0 16px 48px rgba(42,45,36,.06)",
-        glow: "0 0 0 3px rgba(77,200,189,.15), 0 4px 16px rgba(77,200,189,.2)",
+        sm:   "0 1px 4px rgba(15,32,64,.05), 0 2px 8px rgba(15,32,64,.04)",
+        md:   "0 4px 16px rgba(15,32,64,.08), 0 8px 24px rgba(15,32,64,.05)",
+        lg:   "0 8px 32px rgba(15,32,64,.10), 0 16px 48px rgba(15,32,64,.06)",
+        glow: "0 0 0 3px rgba(201,164,74,.18), 0 4px 16px rgba(201,164,74,.22)",
       },
       keyframes: {
         shimmer:   { "0%": { backgroundPosition: "-200% 0" }, "100%": { backgroundPosition: "200% 0" } },

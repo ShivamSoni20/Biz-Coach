@@ -62,17 +62,17 @@ function BrainTabsInner({ brain }: { brain: BrainRecord }) {
 
   return (
     <div className="flex h-full flex-col">
-      <div className="flex flex-col gap-3 border-b border-sage/20 bg-white/40 px-4 py-3 sm:px-6">
+      <div className="flex flex-col gap-3 border-b border-ivory-dk bg-white/40 px-4 py-3 sm:px-6">
         <div className="flex flex-wrap gap-2">
           {tabs.map((tab) => {
             const isActive = tab.id === activeTab;
             return (
               <button
                 key={tab.id}
-                className={`rounded-full border px-4 py-1.5 text-[12px] font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal/40 ${
+                className={`rounded-full border px-4 py-1.5 text-[12px] font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/40 ${
                   isActive
-                    ? "border-teal/30 bg-teal-pale text-green-dk font-semibold shadow-sm"
-                    : "border-sage/25 bg-white/60 text-ink-lt hover:border-sage/40 hover:text-ink"
+                    ? "border-gold/40 bg-gold-pale text-navy font-semibold shadow-sm"
+                    : "border-ivory-dk bg-white/70 text-navy-lt hover:border-gold/30 hover:text-navy"
                 }`}
                 onClick={() => router.replace(`?tab=${tab.id}`)}
                 type="button"
@@ -85,14 +85,14 @@ function BrainTabsInner({ brain }: { brain: BrainRecord }) {
         {activeTab !== "ask" && activeTab !== "actions" && (
           <div className="flex flex-col gap-2 sm:flex-row sm:justify-end">
             <button
-              className="inline-flex min-h-9 items-center justify-center rounded-xl border border-sage/30 bg-white/60 px-4 text-[12px] font-medium text-ink-md transition-all hover:border-teal/35 hover:bg-teal-pale hover:text-green-dk"
+              className="inline-flex min-h-9 items-center justify-center rounded-xl border border-ivory-dk bg-white/60 px-4 text-[12px] font-medium text-navy-md transition-all hover:border-gold/40 hover:bg-gold-pale hover:text-navy"
               onClick={handleCopy}
               type="button"
             >
               {copied ? "Copied ✓" : "Copy current tab"}
             </button>
             <button
-              className="inline-flex min-h-9 items-center justify-center rounded-xl border border-sage/30 bg-white/60 px-4 text-[12px] font-medium text-ink-md transition-all hover:border-teal/35 hover:bg-teal-pale hover:text-green-dk"
+              className="inline-flex min-h-9 items-center justify-center rounded-xl border border-ivory-dk bg-white/60 px-4 text-[12px] font-medium text-navy-md transition-all hover:border-gold/40 hover:bg-gold-pale hover:text-navy"
               onClick={handleDownload}
               type="button"
             >
@@ -100,7 +100,7 @@ function BrainTabsInner({ brain }: { brain: BrainRecord }) {
             </button>
             {activeTab === "api" && (
               <a
-                className="inline-flex min-h-9 items-center justify-center rounded-xl bg-ink px-4 text-[12px] font-medium text-white transition-all hover:-translate-y-0.5 hover:shadow-md"
+                className="inline-flex min-h-9 items-center justify-center rounded-xl bg-gold px-4 text-[12px] font-semibold text-navy transition-all hover:bg-gold-dk hover:text-ivory hover:-translate-y-0.5 hover:shadow-md"
                 href={`/brain/${brain.meta.id}/api`}
                 target="_blank"
                 rel="noreferrer"
@@ -129,8 +129,8 @@ export function BrainTabs({ brain }: { brain: BrainRecord }) {
     <Suspense
       fallback={
         <div className="flex-1 animate-pulse p-6">
-          <div className="h-8 w-64 rounded-xl bg-sage/20" />
-          <div className="mt-4 h-40 rounded-2xl bg-sage/10" />
+          <div className="h-8 w-64 rounded-xl bg-ivory-dk/40" />
+          <div className="mt-4 h-40 rounded-2xl bg-ivory-dk/20" />
         </div>
       }
     >

@@ -8,8 +8,8 @@ const steps = [
 
 export function ProgressSidebar({ questionsAnswered }: { questionsAnswered: number }) {
   return (
-    <aside className="hidden w-60 shrink-0 border-r border-sage/30 bg-white/50 px-4 py-6 lg:block">
-      <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.15em] text-green-dk">
+    <aside className="hidden w-60 shrink-0 border-r border-ivory-dk bg-white/50 px-4 py-6 lg:block">
+      <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.15em] text-gold-dk">
         Questions
       </p>
       <div className="space-y-2">
@@ -22,27 +22,27 @@ export function ProgressSidebar({ questionsAnswered }: { questionsAnswered: numb
               key={step}
               className={`rounded-xl border px-3 py-2.5 text-[12px] transition-all ${
                 isCurrent
-                  ? "border-teal/30 bg-teal-pale text-ink"
+                  ? "border-gold/40 bg-gold-pale text-navy font-medium"
                   : isDone
-                    ? "border-sage/25 bg-sage-pale text-green-dk"
-                    : "border-transparent bg-transparent text-ink-lt"
+                    ? "border-ivory-dk bg-ivory text-gold-dk"
+                    : "border-transparent bg-transparent text-navy-lt"
               }`}
             >
               <div className="flex items-center gap-2.5">
                 <div
                   className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[10px] font-semibold ${
                     isDone
-                      ? "bg-green-dk text-white"
+                      ? "bg-gold text-navy"
                       : isCurrent
-                        ? "bg-teal/15 text-teal"
-                        : "bg-sage-pale text-ink-lt"
+                        ? "bg-gold/20 text-gold-dk"
+                        : "bg-ivory-dk text-navy-lt"
                   }`}
                 >
                   {isDone ? "✓" : index + 1}
                 </div>
                 <div>
                   <p className="font-medium leading-tight">{step}</p>
-                  <p className="text-[10px] text-ink-lt">
+                  <p className="text-[10px] text-navy-lt">
                     {isDone ? "Captured" : isCurrent ? "In progress" : "Coming up"}
                   </p>
                 </div>

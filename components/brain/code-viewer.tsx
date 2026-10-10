@@ -19,12 +19,12 @@ export function CodeViewer({ content }: { content: string }) {
     <div className="group relative">
       <button
         onClick={handleCopy}
-        className="absolute right-3 top-3 z-10 rounded-lg border border-sage/30 bg-white/80 px-2.5 py-1 text-[10px] font-medium text-ink-md opacity-0 transition-all group-hover:opacity-100 hover:border-teal/40 hover:text-green-dk"
+        className="absolute right-3 top-3 z-10 rounded-lg border border-ivory-dk bg-white/90 px-2.5 py-1 text-[10px] font-medium text-navy-md opacity-0 transition-all group-hover:opacity-100 hover:border-gold/40 hover:text-gold-dk"
         type="button"
       >
         {copied ? "Copied ✓" : "Copy"}
       </button>
-      <pre className="overflow-x-auto rounded-2xl border border-sage/25 bg-white/70 p-5 font-mono text-[12px] leading-6 text-ink-md shadow-sm sm:text-[13px]">
+      <pre className="overflow-x-auto rounded-2xl border border-ivory-dk bg-white/80 p-5 font-mono text-[12px] leading-6 text-navy-md shadow-sm sm:text-[13px]">
         <code>{content}</code>
       </pre>
     </div>

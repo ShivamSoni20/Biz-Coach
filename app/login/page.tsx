@@ -13,20 +13,20 @@ export default function LoginPage({
   return (
     <ScreenShell>
       <GridDots />
-      <header className="sticky top-0 z-20 border-b border-sage/30 bg-[rgba(247,244,238,.88)] backdrop-blur-md">
+      <header className="sticky top-0 z-20 border-b border-ivory-dk bg-ivory/90 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
           <Link href="/" className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-gradient-to-br from-teal to-green-dk text-base shadow-glow">
+            <div className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-gold text-base font-bold text-navy shadow-glow">
               BC
             </div>
             <div>
-              <p className="font-display text-[15px] text-ink">Biz Coach</p>
-              <p className="text-[10px] tracking-wide text-ink-lt">Company Brain Builder</p>
+              <p className="font-display text-[15px] text-navy">Biz Coach</p>
+              <p className="text-[10px] tracking-wide text-navy-lt">Company Brain Builder</p>
             </div>
           </Link>
           <Link
             href="/"
-            className="inline-flex min-h-9 items-center rounded-xl border border-sage/30 bg-white/60 px-4 py-2 text-[12px] font-medium text-ink-md transition-all hover:border-teal/35 hover:bg-teal-pale hover:text-green-dk"
+            className="inline-flex min-h-9 items-center rounded-xl border border-ivory-dk bg-white/70 px-4 py-2 text-[12px] font-medium text-navy-md transition-all hover:border-gold/40 hover:bg-gold-pale hover:text-navy"
           >
             Back home
           </Link>

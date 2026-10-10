@@ -27,8 +27,8 @@ export function BrainPreview({ questionsAnswered }: { questionsAnswered: number 
   ];
 
   return (
-    <div className="rounded-[18px] border border-sage/30 bg-white/70 p-4">
-      <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.15em] text-green-dk">
+    <div className="rounded-[18px] border border-ivory-dk bg-white/80 p-4">
+      <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.15em] text-gold-dk">
         Brain preview
       </p>
       <div className="space-y-2.5">
@@ -37,19 +37,19 @@ export function BrainPreview({ questionsAnswered }: { questionsAnswered: number 
             key={item.title}
             className={`rounded-xl border p-3 transition-all ${
               item.active
-                ? "border-teal/25 bg-teal-pale/50"
-                : "border-sage/20 bg-sage-pale/30"
+                ? "border-gold/30 bg-gold-pale/50"
+                : "border-ivory-dk bg-ivory/50"
             }`}
           >
             <div className="flex items-center justify-between gap-2">
-              <p className="font-mono text-[11px] font-medium text-ink">{item.title}</p>
+              <p className="font-mono text-[11px] font-medium text-navy">{item.title}</p>
               <div
                 className={`h-1.5 w-1.5 rounded-full ${
-                  item.active ? "bg-teal animate-pulseLine" : "bg-sage"
+                  item.active ? "bg-gold animate-pulseLine" : "bg-ivory-dk"
                 }`}
               />
             </div>
-            <p className="mt-1.5 text-[11px] leading-5 text-ink-lt">{item.status}</p>
+            <p className="mt-1.5 text-[11px] leading-5 text-navy-lt">{item.status}</p>
           </div>
         ))}
       </div>

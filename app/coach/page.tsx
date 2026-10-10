@@ -210,17 +210,17 @@ export default function CoachPage() {
   return (
     <ScreenShell className="flex min-h-screen flex-col">
       <div className="relative z-10 flex min-h-screen flex-col">
-        <header className="border-b border-sage/30 bg-[rgba(247,244,238,.88)] px-4 py-4 backdrop-blur-md sm:px-6">
+        <header className="border-b border-ivory-dk bg-ivory/90 px-4 py-4 backdrop-blur-md sm:px-6">
           <div className="mx-auto flex max-w-7xl flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <p className="font-display text-[15px] text-ink">Biz Coach</p>
-              <p className="text-[12px] text-ink-lt">
+              <p className="font-display text-[15px] text-navy">Biz Coach</p>
+              <p className="text-[12px] text-navy-lt">
                 {businessName || "Untitled business"} · {businessTypeLabels[businessType]} · {questionsAnswered}/5 answered
               </p>
             </div>
             <div className="flex items-center gap-3">
-              <div className="inline-flex items-center gap-1.5 rounded-full border border-teal/30 bg-gradient-to-r from-teal-pale to-sage-pale px-3 py-1 text-[11px] font-medium uppercase tracking-[0.15em] text-green-dk">
-                <span className="inline-block h-1.5 w-1.5 rounded-full bg-teal animate-pulseLine" />
+              <div className="inline-flex items-center gap-1.5 rounded-full border border-gold/30 bg-gold-pale px-3 py-1 text-[11px] font-medium uppercase tracking-[0.15em] text-gold-dk">
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold animate-pulseLine" />
                 {businessTypeLabels[businessType]}
               </div>
               <Button href="/onboard" variant="ghost">Change type</Button>
@@ -232,7 +232,7 @@ export default function CoachPage() {
           <ProgressSidebar questionsAnswered={questionsAnswered} />
 
           <main className="flex min-h-[calc(100vh-73px)] flex-1 flex-col">
-            <div className="border-b border-sage/20 bg-white/40 px-4 py-3 lg:hidden">
+            <div className="border-b border-ivory-dk bg-white/40 px-4 py-3 lg:hidden">
               <div className="flex flex-wrap gap-2">
                 {mobileSteps.map((step, index) => {
                   const isDone = index < questionsAnswered;
@@ -242,10 +242,10 @@ export default function CoachPage() {
                       key={step}
                       className={`rounded-full border px-3 py-1 text-[11px] font-medium ${
                         isCurrent
-                          ? "border-teal/30 bg-teal-pale text-green-dk"
+                          ? "border-gold/30 bg-gold-pale text-navy font-semibold"
                           : isDone
-                            ? "border-sage/30 bg-sage-pale text-green-dk"
-                            : "border-sage/20 bg-white/60 text-ink-lt"
+                            ? "border-ivory-dk bg-ivory text-gold-dk"
+                            : "border-ivory-dk bg-white/60 text-navy-lt"
                       }`}
                     >
                       {index + 1}. {step}
@@ -256,17 +256,17 @@ export default function CoachPage() {
             </div>
 
             <div className="grid flex-1 gap-5 px-4 py-5 sm:px-6 xl:grid-cols-[minmax(0,1fr)_300px]">
-              <section className="flex min-h-[60vh] flex-col rounded-[20px] border border-sage/30 bg-white/70 shadow-sm">
-                <div className="border-b border-sage/20 px-5 py-4">
-                  <p className="text-[14px] font-semibold text-ink">Structured coaching</p>
-                  <p className="mt-0.5 text-[12px] text-ink-lt">
+              <section className="flex min-h-[60vh] flex-col rounded-[20px] border border-ivory-dk bg-white/80 shadow-sm">
+                <div className="border-b border-ivory-dk px-5 py-4">
+                  <p className="text-[14px] font-semibold text-navy">Structured coaching</p>
+                  <p className="mt-0.5 text-[12px] text-navy-lt">
                     Answer with real examples, owners, tools, and edge cases.
                   </p>
                 </div>
 
                 <div className="flex-1 space-y-4 overflow-y-auto px-4 py-5 sm:px-5">
                   {messages.length === 0 ? (
-                    <div className="rounded-2xl border border-sage/20 bg-sage-pale/50 p-4 text-[13px] text-ink-lt">
+                    <div className="rounded-2xl border border-ivory-dk bg-ivory/50 p-4 text-[13px] text-navy-lt">
                       Starting your session...
                     </div>
                   ) : null}
@@ -280,16 +280,16 @@ export default function CoachPage() {
                   ))}
 
                   {error ? (
-                    <div className="rounded-2xl border border-coral/20 bg-coral-pale p-4 text-[13px]">
-                      <p className="font-medium text-ink">Couldn't continue the coaching flow.</p>
-                      <p className="mt-1.5 text-ink-lt">{error}</p>
+                    <div className="rounded-2xl border border-coral/25 bg-coral-pale p-4 text-[13px]">
+                      <p className="font-medium text-navy">Couldn&apos;t continue the coaching flow.</p>
+                      <p className="mt-1.5 text-navy-lt">{error}</p>
                     </div>
                   ) : null}
 
                   {isGenerating ? (
-                    <div className="rounded-2xl border border-teal/20 bg-teal-pale p-4 text-[13px] text-green-dk">
+                    <div className="rounded-2xl border border-gold/30 bg-gold-pale p-4 text-[13px] text-gold-dk">
                       <div className="flex items-center gap-2">
-                        <span className="inline-block h-1.5 w-1.5 rounded-full bg-teal animate-pulseLine" />
+                        <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold animate-pulseLine" />
                         Generating your Company Brain...
                       </div>
                     </div>
@@ -298,13 +298,13 @@ export default function CoachPage() {
                   <div ref={bottomRef} />
                 </div>
 
-                <details className="border-t border-sage/20 bg-white/40 px-4 py-2 xl:hidden">
-                  <summary className="cursor-pointer text-[11px] font-medium text-green-dk">
+                <details className="border-t border-ivory-dk bg-white/40 px-4 py-2 xl:hidden">
+                  <summary className="cursor-pointer text-[11px] font-semibold text-gold-dk">
                     💡 Prompting tips
                   </summary>
-                  <ul className="mt-2 space-y-1 pb-2 text-[11px] leading-5 text-ink-lt">
+                  <ul className="mt-2 space-y-1 pb-2 text-[11px] leading-5 text-navy-lt">
                     <li>Use exact numbers: retainers, turnaround times, approval windows.</li>
-                    <li>Name real tools and owners — not just "the team".</li>
+                    <li>Name real tools and owners — not just &quot;the team&quot;.</li>
                     <li>Call out failure cases and escalation rules.</li>
                   </ul>
                 </details>
@@ -318,13 +318,13 @@ export default function CoachPage() {
 
               <aside className="hidden space-y-4 xl:sticky xl:top-5 xl:block xl:self-start">
                 <BrainPreview questionsAnswered={questionsAnswered} />
-                <div className="rounded-[20px] border border-sage/30 bg-white/70 p-5">
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-green-dk">
+                <div className="rounded-[20px] border border-ivory-dk bg-white/80 p-5">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-gold-dk">
                     Prompting tips
                   </p>
-                  <ul className="mt-4 space-y-3 text-[12px] leading-6 text-ink-lt">
+                  <ul className="mt-4 space-y-3 text-[12px] leading-6 text-navy-lt">
                     <li>Use exact numbers: retainers, turnaround times, approval windows.</li>
-                    <li>Name real tools and owners, not just "the team".</li>
+                    <li>Name real tools and owners, not just &quot;the team&quot;.</li>
                     <li>Call out failure cases and escalation rules when work gets blocked.</li>
                   </ul>
                 </div>

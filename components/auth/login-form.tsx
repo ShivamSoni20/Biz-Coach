@@ -1,8 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import type { FormEvent } from "react";
-import { useEffect, useState } from "react";
 
 import { supabaseBrowser } from "@/lib/supabase-browser";
 
@@ -13,58 +13,53 @@ export function LoginForm({ redirectTo }: { redirectTo: string }) {
   const [about, setAbout] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  useEffect(() => {
-    supabaseBrowser.auth.getSession().then(({ data }) => {
-      if (data.session) {
-        router.replace(redirectTo);
-      }
-    });
-  }, [redirectTo, router]);
+  const [error, setError] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setIsSubmitting(true);
     setError(null);
     setMessage(null);
-    setIsSubmitting(true);
 
     try {
-      const { data, error: authError } =
-        mode === "login"
-          ? await supabaseBrowser.auth.signInWithPassword({
-              email: email.trim(),
-              password,
-            })
-          : await supabaseBrowser.auth.signUp({
-              email: email.trim(),
-              password,
-              options: {
-                data: {
-                  name: name.trim(),
-                  about: about.trim(),
-                },
-              },
-            });
+      if (mode === "signup") {
+        const { error: signUpError } = await supabaseBrowser.auth.signUp({
+          email,
+          password,
+          options: {
+            data: {
+              name,
+              about
+            }
+          }
+        });
 
-      if (authError) {
-        throw authError;
-      }
+        if (signUpError) {
+          throw signUpError;
+        }
 
-      if (data.session) {
-        router.replace(redirectTo);
+        setMessage("Account created. Please check your email or log in.");
+      } else {
+        const { error: signInError } =
+          await supabaseBrowser.auth.signInWithPassword({
+            email,
+            password
+          });
+
+        if (signInError) {
+          throw signInError;
+        }
+
+        router.push(redirectTo);
         router.refresh();
-        return;
       }
-
-      setMessage("Account created. Please confirm your email, then login.");
-    } catch (caughtError) {
+    } catch (submitError) {
       setError(
-        caughtError instanceof Error
-          ? caughtError.message
-          : "Authentication failed. Please try again."
+        submitError instanceof Error
+          ? submitError.message
+          : "Authentication failed."
       );
     } finally {
       setIsSubmitting(false);
@@ -72,14 +67,14 @@ export function LoginForm({ redirectTo }: { redirectTo: string }) {
   }
 
   return (
-    <div className="relative z-10 w-full max-w-md rounded-[2rem] border border-sage/30 bg-white/75 p-5 shadow-glow backdrop-blur-sm sm:p-7">
-      <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-green-dk">
+    <div className="relative z-10 w-full max-w-md rounded-[2rem] border border-ivory-dk bg-white/80 p-5 shadow-glow backdrop-blur-sm sm:p-7">
+      <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-gold-dk">
         Secure access
       </p>
-      <h1 className="mt-4 font-display text-[34px] tracking-[-0.03em] text-ink">
+      <h1 className="mt-4 font-display text-[34px] tracking-[-0.03em] text-navy">
         {mode === "login" ? "Login to Biz Coach" : "Create your account"}
       </h1>
-      <p className="mt-2 text-[14px] leading-6 text-ink-lt">
+      <p className="mt-2 text-[14px] leading-6 text-navy-lt">
         Save your Company Brain sessions with Supabase auth before starting the coaching flow.
       </p>
 
@@ -87,12 +82,12 @@ export function LoginForm({ redirectTo }: { redirectTo: string }) {
         {mode === "signup" ? (
           <>
             <div>
-              <label className="block text-[12px] font-medium text-ink" htmlFor="name">
+              <label className="block text-[12px] font-medium text-navy" htmlFor="name">
                 Name
               </label>
               <input
                 autoComplete="name"
-                className="mt-2 min-h-12 w-full rounded-2xl border border-sage/30 bg-[#f7f4ee]/70 px-4 text-[14px] text-ink outline-none placeholder:text-ink-lt focus:border-teal/40 focus:ring-2 focus:ring-teal/15"
+                className="mt-2 min-h-12 w-full rounded-2xl border border-ivory-dk bg-ivory/60 px-4 text-[14px] text-navy outline-none placeholder:text-navy-lt focus:border-gold/60 focus:ring-2 focus:ring-gold/20"
                 id="name"
                 onChange={(event) => setName(event.target.value)}
                 placeholder="Shivam Soni"
@@ -103,11 +98,11 @@ export function LoginForm({ redirectTo }: { redirectTo: string }) {
             </div>
 
             <div>
-              <label className="block text-[12px] font-medium text-ink" htmlFor="about">
+              <label className="block text-[12px] font-medium text-navy" htmlFor="about">
                 About
               </label>
               <textarea
-                className="mt-2 min-h-24 w-full resize-none rounded-2xl border border-sage/30 bg-[#f7f4ee]/70 px-4 py-3 text-[14px] text-ink outline-none placeholder:text-ink-lt focus:border-teal/40 focus:ring-2 focus:ring-teal/15"
+                className="mt-2 min-h-24 w-full resize-none rounded-2xl border border-ivory-dk bg-ivory/60 px-4 py-3 text-[14px] text-navy outline-none placeholder:text-navy-lt focus:border-gold/60 focus:ring-2 focus:ring-gold/20"
                 id="about"
                 onChange={(event) => setAbout(event.target.value)}
                 placeholder="Tell us what you do, your role, or your company context."
@@ -119,12 +114,12 @@ export function LoginForm({ redirectTo }: { redirectTo: string }) {
         ) : null}
 
         <div>
-          <label className="block text-[12px] font-medium text-ink" htmlFor="email">
+          <label className="block text-[12px] font-medium text-navy" htmlFor="email">
             Email
           </label>
           <input
             autoComplete="email"
-            className="mt-2 min-h-12 w-full rounded-2xl border border-sage/30 bg-[#f7f4ee]/70 px-4 text-[14px] text-ink outline-none placeholder:text-ink-lt focus:border-teal/40 focus:ring-2 focus:ring-teal/15"
+            className="mt-2 min-h-12 w-full rounded-2xl border border-ivory-dk bg-ivory/60 px-4 text-[14px] text-navy outline-none placeholder:text-navy-lt focus:border-gold/60 focus:ring-2 focus:ring-gold/20"
             id="email"
             onChange={(event) => setEmail(event.target.value)}
             placeholder="you@company.com"
@@ -135,12 +130,12 @@ export function LoginForm({ redirectTo }: { redirectTo: string }) {
         </div>
 
         <div>
-          <label className="block text-[12px] font-medium text-ink" htmlFor="password">
+          <label className="block text-[12px] font-medium text-navy" htmlFor="password">
             Password
           </label>
           <input
             autoComplete={mode === "login" ? "current-password" : "new-password"}
-            className="mt-2 min-h-12 w-full rounded-2xl border border-sage/30 bg-[#f7f4ee]/70 px-4 text-[14px] text-ink outline-none placeholder:text-ink-lt focus:border-teal/40 focus:ring-2 focus:ring-teal/15"
+            className="mt-2 min-h-12 w-full rounded-2xl border border-ivory-dk bg-ivory/60 px-4 text-[14px] text-navy outline-none placeholder:text-navy-lt focus:border-gold/60 focus:ring-2 focus:ring-gold/20"
             id="password"
             minLength={6}
             onChange={(event) => setPassword(event.target.value)}
@@ -152,19 +147,19 @@ export function LoginForm({ redirectTo }: { redirectTo: string }) {
         </div>
 
         {error ? (
-          <div className="rounded-2xl border border-coral/25 bg-coral-pale p-3 text-[12px] leading-5 text-ink">
+          <div className="rounded-2xl border border-coral/25 bg-coral-pale p-3 text-[12px] leading-5 text-navy">
             {error}
           </div>
         ) : null}
 
         {message ? (
-          <div className="rounded-2xl border border-teal/25 bg-teal-pale p-3 text-[12px] leading-5 text-green-dk">
+          <div className="rounded-2xl border border-gold/30 bg-gold-pale p-3 text-[12px] leading-5 text-gold-dk">
             {message}
           </div>
         ) : null}
 
         <button
-          className="inline-flex min-h-12 w-full items-center justify-center rounded-2xl bg-ink px-5 text-[14px] font-medium text-white transition-all hover:-translate-y-0.5 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex min-h-12 w-full items-center justify-center rounded-2xl bg-gold px-5 text-[14px] font-semibold text-navy transition-all hover:bg-gold-dk hover:text-ivory hover:-translate-y-0.5 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-50"
           disabled={isSubmitting}
           type="submit"
         >
@@ -177,7 +172,7 @@ export function LoginForm({ redirectTo }: { redirectTo: string }) {
       </form>
 
       <button
-        className="mt-5 w-full text-center text-[13px] text-ink-lt underline underline-offset-4 transition-colors hover:text-green-dk"
+        className="mt-5 w-full text-center text-[13px] text-navy-lt underline underline-offset-4 transition-colors hover:text-gold-dk"
         onClick={() => {
           setMode((current) => (current === "login" ? "signup" : "login"));
           setError(null);

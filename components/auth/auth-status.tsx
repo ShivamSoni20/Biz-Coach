@@ -60,7 +60,7 @@ export function AuthStatus() {
 
   if (isLoading) {
     return (
-      <span className="hidden rounded-xl border border-sage/25 bg-white/50 px-4 py-2 text-[12px] text-ink-lt sm:inline-flex">
+      <span className="hidden rounded-xl border border-ivory-dk bg-white/50 px-4 py-2 text-[12px] text-navy-lt sm:inline-flex">
         Checking...
       </span>
     );
@@ -69,7 +69,7 @@ export function AuthStatus() {
   if (!email) {
     return (
       <Link
-        className="inline-flex min-h-9 items-center rounded-xl bg-ink px-5 py-2.5 text-sm font-medium text-white transition-all hover:-translate-y-0.5 hover:shadow-md"
+        className="inline-flex min-h-9 items-center rounded-xl bg-gold px-5 py-2.5 text-sm font-semibold text-navy transition-all hover:bg-gold-dk hover:text-ivory hover:-translate-y-0.5 hover:shadow-md"
         href="/login?redirect=/dashboard"
       >
         Login
@@ -80,12 +80,12 @@ export function AuthStatus() {
   return (
     <div className="flex items-center gap-2">
       {displayName ? (
-        <span className="hidden max-w-[150px] truncate rounded-xl border border-sage/25 bg-white/50 px-3 py-2 text-[12px] font-medium text-ink-md sm:inline-flex">
+        <span className="hidden max-w-[150px] truncate rounded-xl border border-ivory-dk bg-white/60 px-3 py-2 text-[12px] font-medium text-navy-md sm:inline-flex">
           {displayName}
         </span>
       ) : null}
       <button
-        className="inline-flex min-h-9 items-center rounded-xl bg-ink px-5 py-2.5 text-sm font-medium text-white transition-all hover:-translate-y-0.5 hover:shadow-md"
+        className="inline-flex min-h-9 items-center rounded-xl bg-gold px-5 py-2.5 text-sm font-semibold text-navy transition-all hover:bg-gold-dk hover:text-ivory hover:-translate-y-0.5 hover:shadow-md"
         onClick={handleSignOut}
         type="button"
       >

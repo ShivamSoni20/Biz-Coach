@@ -68,19 +68,19 @@ export function HarnessActionsTab({ brain }: { brain: BrainRecord }) {
 
   return (
     <div className="flex flex-col gap-6 max-w-4xl mx-auto py-2">
-      <div className="rounded-2xl border border-sage/30 bg-white p-6 shadow-sm">
-        <h3 className="font-display text-lg text-ink">Agent Harness & Safe Tool Execution</h3>
-        <p className="mt-1 text-xs text-ink-lt">
+      <div className="rounded-2xl border border-ivory-dk bg-white p-6 shadow-sm">
+        <h3 className="font-display text-lg text-navy">Agent Harness &amp; Safe Tool Execution</h3>
+        <p className="mt-1 text-xs text-navy-lt">
           Execute schema-validated tools over this Company Brain with dry-run preview and append-only audit logging.
         </p>
 
         <form onSubmit={handleExecute} className="mt-5 space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-ink-lt mb-1">Select Tool</label>
+            <label className="block text-xs font-semibold text-navy-lt mb-1">Select Tool</label>
             <select
               value={selectedTool}
               onChange={(e) => setSelectedTool(e.target.value)}
-              className="w-full rounded-xl border border-sage/30 bg-white px-3 py-2 text-sm text-ink focus:border-teal focus:outline-none"
+              className="w-full rounded-xl border border-ivory-dk bg-white px-3 py-2 text-sm text-navy focus:border-gold/60 focus:outline-none"
             >
               {tools.map((t) => (
                 <option key={t.name} value={t.name}>
@@ -91,12 +91,12 @@ export function HarnessActionsTab({ brain }: { brain: BrainRecord }) {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-ink-lt mb-1">Tool Arguments (JSON)</label>
+            <label className="block text-xs font-semibold text-navy-lt mb-1">Tool Arguments (JSON)</label>
             <textarea
               rows={4}
               value={argsJson}
               onChange={(e) => setArgsJson(e.target.value)}
-              className="w-full rounded-xl border border-sage/30 font-mono text-xs p-3 text-ink bg-slate-50 focus:border-teal focus:outline-none"
+              className="w-full rounded-xl border border-ivory-dk font-mono text-xs p-3 text-navy bg-ivory/50 focus:border-gold/60 focus:outline-none"
             />
           </div>
 
@@ -106,9 +106,9 @@ export function HarnessActionsTab({ brain }: { brain: BrainRecord }) {
               id="dryRunCheck"
               checked={dryRun}
               onChange={(e) => setDryRun(e.target.checked)}
-              className="rounded border-sage/30 text-teal focus:ring-teal"
+              className="rounded border-ivory-dk text-gold focus:ring-gold"
             />
-            <label htmlFor="dryRunCheck" className="text-xs font-medium text-ink">
+            <label htmlFor="dryRunCheck" className="text-xs font-medium text-navy">
               Enable Dry Run Mode (preview side-effects without mutating data)
             </label>
           </div>
@@ -116,31 +116,31 @@ export function HarnessActionsTab({ brain }: { brain: BrainRecord }) {
           <button
             type="submit"
             disabled={loading}
-            className="rounded-xl bg-ink px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-black disabled:opacity-50"
+            className="rounded-xl bg-gold px-5 py-2.5 text-sm font-semibold text-navy transition-all hover:bg-gold-dk hover:text-ivory disabled:opacity-50"
           >
             {loading ? "Processing..." : dryRun ? "Run Dry-Run Preview" : "Execute Tool Safely"}
           </button>
         </form>
 
         {result && (
-          <div className={`mt-6 rounded-xl border p-5 ${result.success ? "border-teal/30 bg-teal-pale/30" : "border-coral-lt bg-coral-lt/10"}`}>
+          <div className={`mt-6 rounded-xl border p-5 ${result.success ? "border-gold/30 bg-gold-pale/40" : "border-coral-lt bg-coral-lt/10"}`}>
             <div className="flex items-center justify-between">
-              <span className={`text-xs font-bold uppercase tracking-wider ${result.success ? "text-green-dk" : "text-red-600"}`}>
+              <span className={`text-xs font-bold uppercase tracking-wider ${result.success ? "text-gold-dk" : "text-coral"}`}>
                 {result.dryRun ? "Dry Run Preview" : result.success ? "Execution Succeeded" : "Execution Failed"}
               </span>
-              <span className="text-[10px] text-ink-lt font-mono">{new Date().toLocaleTimeString()}</span>
+              <span className="text-[10px] text-navy-lt font-mono">{new Date().toLocaleTimeString()}</span>
             </div>
 
-            <p className="mt-2 text-sm text-ink font-medium">{result.message}</p>
+            <p className="mt-2 text-sm text-navy font-medium">{result.message}</p>
 
             {result.diffPreview && (
-              <pre className="mt-3 rounded-lg bg-white p-3 font-mono text-xs text-ink-lt border border-sage/20 whitespace-pre-wrap">
+              <pre className="mt-3 rounded-lg bg-white p-3 font-mono text-xs text-navy-lt border border-ivory-dk whitespace-pre-wrap">
                 {result.diffPreview}
               </pre>
             )}
 
             {result.data && (
-              <pre className="mt-3 rounded-lg bg-white p-3 font-mono text-xs text-ink-lt border border-sage/20 overflow-x-auto">
+              <pre className="mt-3 rounded-lg bg-white p-3 font-mono text-xs text-navy-lt border border-ivory-dk overflow-x-auto">
                 {JSON.stringify(result.data, null, 2)}
               </pre>
             )}

@@ -72,9 +72,9 @@ export default function OnboardPage() {
     <ScreenShell className="flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
       <GridDots />
       {isAuthChecking ? (
-        <div className="relative z-10 w-full max-w-md rounded-[2rem] border border-sage/30 bg-white/75 p-8 text-center shadow-glow">
-          <p className="font-display text-[28px] text-ink">Checking login...</p>
-          <p className="mt-2 text-[13px] text-ink-lt">Redirecting you if needed.</p>
+        <div className="relative z-10 w-full max-w-md rounded-[2rem] border border-ivory-dk bg-white/80 p-8 text-center shadow-glow">
+          <p className="font-display text-[28px] text-navy">Checking login...</p>
+          <p className="mt-2 text-[13px] text-navy-lt">Redirecting you if needed.</p>
         </div>
       ) : (
         <div className="relative z-10 w-full max-w-3xl rounded-[2rem] border border-border/70 bg-card/75 p-5 shadow-glow sm:p-8">
