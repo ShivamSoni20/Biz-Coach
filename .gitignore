@@ -11,3 +11,4 @@ opt-coach-ui.jsx
 next work/
 dist
 coverage
+*.tsbuildinfo

@@ -1,16 +1,19 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
 
 import { CodeViewer } from "@/components/brain/code-viewer";
+import { AskBrainTab } from "@/components/brain/ask-tab";
+import { HarnessActionsTab } from "@/components/brain/harness-tab";
 import type { BrainRecord } from "@/lib/types";
 
 const tabs = [
   { id: "knowledge", label: "KNOWLEDGE.md", filename: "KNOWLEDGE.md" },
   { id: "processes", label: "PROCESSES.md", filename: "PROCESSES.md" },
   { id: "judgment", label: "JUDGMENT.md", filename: "JUDGMENT.md" },
+  { id: "ask", label: "Ask Brain (RAG)", filename: "ask-rag" },
+  { id: "actions", label: "Actions (Harness)", filename: "actions" },
   { id: "api", label: "API Endpoint", filename: "brain-api-payload.json" },
 ] as const;
 
@@ -68,7 +71,7 @@ function BrainTabsInner({ brain }: { brain: BrainRecord }) {
                 key={tab.id}
                 className={`rounded-full border px-4 py-1.5 text-[12px] font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal/40 ${
                   isActive
-                    ? "border-teal/30 bg-teal-pale text-green-dk"
+                    ? "border-teal/30 bg-teal-pale text-green-dk font-semibold shadow-sm"
                     : "border-sage/25 bg-white/60 text-ink-lt hover:border-sage/40 hover:text-ink"
                 }`}
                 onClick={() => router.replace(`?tab=${tab.id}`)}
@@ -79,35 +82,43 @@ function BrainTabsInner({ brain }: { brain: BrainRecord }) {
             );
           })}
         </div>
-        <div className="flex flex-col gap-2 sm:flex-row sm:justify-end">
-          <button
-            className="inline-flex min-h-9 items-center justify-center rounded-xl border border-sage/30 bg-white/60 px-4 text-[12px] font-medium text-ink-md transition-all hover:border-teal/35 hover:bg-teal-pale hover:text-green-dk"
-            onClick={handleCopy}
-            type="button"
-          >
-            {copied ? "Copied ✓" : "Copy current tab"}
-          </button>
-          <button
-            className="inline-flex min-h-9 items-center justify-center rounded-xl border border-sage/30 bg-white/60 px-4 text-[12px] font-medium text-ink-md transition-all hover:border-teal/35 hover:bg-teal-pale hover:text-green-dk"
-            onClick={handleDownload}
-            type="button"
-          >
-            Download {activeTabConfig.filename}
-          </button>
-          {activeTab === "api" && (
-            <a
-              className="inline-flex min-h-9 items-center justify-center rounded-xl bg-ink px-4 text-[12px] font-medium text-white transition-all hover:-translate-y-0.5 hover:shadow-md"
-              href={`/brain/${brain.meta.id}/api`}
-              target="_blank"
-              rel="noreferrer"
+        {activeTab !== "ask" && activeTab !== "actions" && (
+          <div className="flex flex-col gap-2 sm:flex-row sm:justify-end">
+            <button
+              className="inline-flex min-h-9 items-center justify-center rounded-xl border border-sage/30 bg-white/60 px-4 text-[12px] font-medium text-ink-md transition-all hover:border-teal/35 hover:bg-teal-pale hover:text-green-dk"
+              onClick={handleCopy}
+              type="button"
             >
-              Open raw API ↗
-            </a>
-          )}
-        </div>
+              {copied ? "Copied ✓" : "Copy current tab"}
+            </button>
+            <button
+              className="inline-flex min-h-9 items-center justify-center rounded-xl border border-sage/30 bg-white/60 px-4 text-[12px] font-medium text-ink-md transition-all hover:border-teal/35 hover:bg-teal-pale hover:text-green-dk"
+              onClick={handleDownload}
+              type="button"
+            >
+              Download {activeTabConfig.filename}
+            </button>
+            {activeTab === "api" && (
+              <a
+                className="inline-flex min-h-9 items-center justify-center rounded-xl bg-ink px-4 text-[12px] font-medium text-white transition-all hover:-translate-y-0.5 hover:shadow-md"
+                href={`/brain/${brain.meta.id}/api`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open raw API ↗
+              </a>
+            )}
+          </div>
+        )}
       </div>
       <div className="flex-1 overflow-y-auto p-4 sm:p-6">
-        <CodeViewer content={content} />
+        {activeTab === "ask" ? (
+          <AskBrainTab brain={brain} />
+        ) : activeTab === "actions" ? (
+          <HarnessActionsTab brain={brain} />
+        ) : (
+          <CodeViewer content={content} />
+        )}
       </div>
     </div>
   );

@@ -1,23 +1,39 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+let _supabaseAdmin: SupabaseClient | null = null;
+let _supabaseClient: SupabaseClient | null = null;
 
-if (!supabaseUrl) {
-  throw new Error("NEXT_PUBLIC_SUPABASE_URL is not set.");
+export function getSupabaseAdmin(): SupabaseClient {
+  if (_supabaseAdmin) return _supabaseAdmin;
+
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder.supabase.co";
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || "placeholder-service-key";
+
+  _supabaseAdmin = createClient(supabaseUrl, serviceKey, {
+    auth: { persistSession: false },
+  });
+  return _supabaseAdmin;
 }
 
-if (!serviceKey) {
-  throw new Error("SUPABASE_SERVICE_ROLE_KEY is not set.");
+export function getSupabaseClient(): SupabaseClient {
+  if (_supabaseClient) return _supabaseClient;
+
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder.supabase.co";
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "placeholder-anon-key";
+
+  _supabaseClient = createClient(supabaseUrl, anonKey);
+  return _supabaseClient;
 }
 
-if (!anonKey) {
-  throw new Error("NEXT_PUBLIC_SUPABASE_ANON_KEY is not set.");
-}
-
-export const supabaseAdmin = createClient(supabaseUrl, serviceKey, {
-  auth: { persistSession: false }
+// Proxies for backwards compatibility with existing direct exports
+export const supabaseAdmin = new Proxy({} as SupabaseClient, {
+  get(_target, prop) {
+    return (getSupabaseAdmin() as any)[prop];
+  },
 });
 
-export const supabaseClient = createClient(supabaseUrl, anonKey);
+export const supabaseClient = new Proxy({} as SupabaseClient, {
+  get(_target, prop) {
+    return (getSupabaseClient() as any)[prop];
+  },
+});

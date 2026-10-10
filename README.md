@@ -1,280 +1,141 @@
-# OPT Coach
+# Biz Coach
 
-AI-guided Company Brain builder for service businesses. Turn founder knowledge, approval rules, workflows, pricing context, and hidden team judgment into structured markdown files, a shareable page, and a live JSON endpoint.
+> **Your business runs on tribal knowledge. Let's fix that.**
+>
+> Biz Coach guides founders through 5 focused questions and auto-generates a **Company Brain** —
+> structured SOPs, judgment rules, and skills your team *and* your AI agents can use from day one.
 
-Built for the OpenAI x Outskill Hackathon.
+[![Live Demo](https://img.shields.io/badge/Live-biz--coach.vercel.app-teal?style=for-the-badge)](https://biz-coach.vercel.app)
+[![Next.js](https://img.shields.io/badge/Next.js-14-black?style=flat-square&logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
+[![Supabase](https://img.shields.io/badge/Supabase-Postgres-3ECF8E?style=flat-square&logo=supabase)](https://supabase.com/)
+[![OpenRouter](https://img.shields.io/badge/AI-OpenRouter-6366F1?style=flat-square)](https://openrouter.ai/)
+[![License](https://img.shields.io/badge/License-MIT-8B5CF6?style=flat-square)](LICENSE)
 
-`Next.js` `TypeScript` `Supabase` `AIML API` `Vercel Analytics` `Tailwind CSS`
+[Live Demo](https://biz-coach.vercel.app) · [Pitch Deck](https://biz-coach.vercel.app/bizcoachslides) · [How it works](#how-it-works) · [Architecture](#architecture) · [Setup](#getting-started) · [Roadmap](#roadmap)
 
-[Live Demo](https://opt-coach.vercel.app) · [Company Brain Flow](#core-flow) · [Architecture](#architecture) · [Database](#database-setup) · [Roadmap](#roadmap)
+---
 
-## Overview
+## The problem
 
-OPT Coach helps small teams document what usually lives only in the founder's head.
+Every service business runs on knowledge that lives in exactly one place: the founder's head.
+How clients are onboarded. What "good enough" looks like. Who approves what. The edge cases
+a new hire takes six months to learn.
 
-Most service businesses do not lack knowledge. They lack a clean operating brain that AI tools, teammates, and new hires can use. OPT Coach solves that with a short coaching flow: the user logs in, enters business details, answers focused operational questions, and receives a structured Company Brain.
+That knowledge is never written down — so teammates guess, AI tools hallucinate, and the
+business can't scale past its founder.
 
-The generated output includes:
+## What Biz Coach does
 
-- `KNOWLEDGE.md` for business model, clients, pricing, team structure, and metrics.
-- `PROCESSES.md` for workflows, owners, triggers, steps, and decision points.
-- `JUDGMENT.md` for quality criteria, approval rules, scoring logic, and escalation rules.
-- A read-only share page for teammates.
-- A raw JSON API endpoint for agent workflows.
-- A private dashboard for previous chats and generated brains.
+A founder picks their business type (agency, freelancer, consultant, startup), answers
+**5 questions in plain language** — Hinglish welcome — and Biz Coach generates their
+**Company Brain**:
 
-## Team
+| Output | What it is |
+|---|---|
+| `KNOWLEDGE.md` | Operating model, client profile, pricing logic, team structure, key metrics |
+| `PROCESSES.md` | Workflows with owners, triggers, step-by-step actions, decision points |
+| `JUDGMENT.md` | Quality criteria, hard rules, scoring frameworks, approval guardrails |
+| `skills[]` | Reusable skill records (name, inputs, outputs, steps) extracted from the conversation |
+| Share link | Read-only page that onboards teammates without dumping raw prompts on them |
+| JSON API | A live endpoint (`/brain/[id]/api`) any AI tool or agent can query |
 
-| Member | Role |
-| --- | --- |
-| Shivam Soni | Project creator. Product idea, MVP direction, frontend iteration, testing, hackathon submission, and product positioning. |
-| Codex | AI pair-programming support for implementation, debugging, documentation, and production polish. |
+**20 minutes, 5 questions, 3 files, 1 live URL.**
 
-## Why OPT Coach
+## How it works
 
-| Problem | How OPT Coach solves it |
-| --- | --- |
-| Tribal knowledge is scattered | The coach asks structured questions and converts answers into reusable files. |
-| SOP writing is slow | The app generates process docs automatically from a conversation. |
-| AI agents lack business context | Every brain includes a machine-readable JSON endpoint. |
-| Team judgment is hard to document | The flow captures approval rules, quality criteria, and decision logic. |
-| Founders repeat explanations | Share pages and dashboards make knowledge reusable across the team. |
+```
+Founder ──► 5-question AI coaching chat (streamed, adaptive, Hinglish-aware)
+                  │
+                  ▼
+         Structured extraction → JSON-schema-constrained generation
+                  │
+                  ▼
+         Validation & normalization layer (never trust raw model output)
+                  │
+                  ▼
+         Company Brain → markdown files + share page + dashboard + JSON API
+```
 
-## Features
+1. **Onboard** — pick a business type; the conversation adapts from the first question.
+2. **Coach** — one question at a time. The coach confirms understanding after each answer
+   and probes once when an answer is vague ("Can you give me a specific example?").
+3. **Generate** — the full conversation is compiled into a typed `BrainRecord`
+   (knowledge, processes, judgment, skills) plus clean markdown, with a rule baked into
+   the prompt: *use only what was said — never invent details.*
+4. **Ship** — view it as file tabs, share a read-only link, pull it over the JSON API.
 
-| Feature | Description |
-| --- | --- |
-| Guided Coaching Flow | A 5-question AI coach captures operating model, workflows, approvals, and hidden judgment. |
-| Auth + Dashboard | Users can create an account, log in, view previous chats, and open generated brains. |
-| Company Brain Generation | Converts a completed coaching session into `KNOWLEDGE.md`, `PROCESSES.md`, and `JUDGMENT.md`. |
-| Downloadable Files | Users can download each generated markdown file and the raw API payload. |
-| Share Page | Read-only public view for teammates, clients, or judges. |
-| API Endpoint | Each brain exposes JSON at `/brain/[id]/api` for AI agent workflows. |
-| Supabase Storage | Sessions and generated brains are stored in Supabase Postgres. |
-| Vercel Analytics | Production page views are tracked through Vercel Analytics. |
-| Responsive UI | Landing, login, dashboard, coach, brain view, and share pages are mobile-friendly. |
+## Why it's interesting (the AI engineering)
 
-## Core Flow
-
-1. User opens the landing page.
-2. User logs in or creates an account.
-3. User opens the dashboard and starts a new Company Brain.
-4. User enters business name and selects a business type.
-5. OPT Coach starts the AI coaching session.
-6. User answers focused questions about operations, workflows, quality, and approvals.
-7. The app generates the Company Brain.
-8. User can view files, download files, share the page, or open the API endpoint.
+- **Structured extraction, not chat-and-hope.** Brain generation uses JSON-mode output
+  against an exact schema, then a deterministic normalization layer
+  (`lib/brain-generator.ts`) coerces, defaults, and validates every field — the model
+  proposes, code disposes.
+- **Anti-hallucination by design.** The generation prompt forbids inventing unstated
+  details and requires "Not specified" over guessing — verified behavior, not vibes.
+- **Stateful coaching sessions.** Conversation state, question progress, and brain
+  readiness detection persist in Supabase with TTLs; sessions survive refreshes.
+- **Streaming UX.** Token-streamed coaching responses via `ReadableStream`, with the
+  session persisted only after the stream completes.
+- **Multilingual grounding.** The coach mirrors the founder's language — Hinglish in,
+  Hinglish out — because that's how Indian service businesses actually talk.
 
 ## Architecture
 
-```mermaid
-flowchart TD
-  A[Landing Page] --> B[Login / Signup]
-  B --> C[Dashboard]
-  C --> D[Onboarding]
-  D --> E[AI Coach]
-  E --> F[Generate Brain]
-  F --> G[Supabase Postgres]
-  G --> H[Brain Viewer]
-  H --> I[Markdown Tabs]
-  H --> J[Share Page]
-  H --> K[JSON API Endpoint]
 ```
-
-## Key Technical Highlights
-
-### 1. Structured Knowledge Extraction
-
-The coach prompt is designed to capture the operating model, client profile, pricing, team roles, process steps, approval rules, and quality criteria. The goal is not just to chat, but to extract reusable business memory.
-
-### 2. AI-Ready Output Format
-
-The generated Company Brain is stored as both human-readable markdown and structured JSON. This makes it useful for teammates and for future AI agents that need business context.
-
-### 3. Supabase-Backed Session Storage
-
-The app stores active coaching sessions and generated brains in Supabase. A lightweight `kv` adapter keeps the application code simple while using Postgres as the primary database.
-
-### 4. Authenticated Dashboard
-
-Users can sign up, log in, and view saved brain files and previous chat sessions. The dashboard is designed as the user's private workspace.
-
-### 5. Shareable Knowledge Artifact
-
-Every generated brain has a clean read-only share page, so the result can be shown to teammates, judges, collaborators, or clients without exposing the full coaching session.
-
-### 6. Download + API Access
-
-Users can download `KNOWLEDGE.md`, `PROCESSES.md`, `JUDGMENT.md`, and the JSON API payload. This keeps the product useful even outside the web app.
-
-## Tech Stack
-
-| Layer | Technology |
-| --- | --- |
-| Frontend | Next.js 14 App Router, React 18, TypeScript |
-| Styling | Tailwind CSS, custom pastel design system |
-| AI | AIML API through an OpenAI-compatible client |
-| Database | Supabase Postgres |
-| Auth | Supabase Auth |
-| Analytics | Vercel Analytics |
-| IDs | Nano ID |
-| Deployment | Vercel |
-
-## Repository Layout
-
-```txt
 app/
-├── api/
-│   ├── chat/              # Streaming AI coach route
-│   └── generate/          # Company Brain generation route
-├── brain/[id]/            # Brain viewer, share page, and API endpoint
-├── coach/                 # Guided coaching experience
-├── dashboard/             # Logged-in workspace with saved brains and chats
-├── login/                 # Login and signup page
-├── onboard/               # Business setup flow
-└── page.tsx               # Landing page
-
-components/
-├── analytics/             # Vercel Analytics client wrapper
-├── auth/                  # Login form and navbar auth status
-├── brain/                 # File tabs, code viewer, share panel
-├── coach/                 # Chat UI, input, progress, brain preview
-└── ui/                    # Shared shell and UI primitives
-
+├── page.tsx                 Landing page
+├── onboard/page.tsx         Business-type picker
+├── coach/page.tsx           5-question streaming chat
+├── dashboard/page.tsx       Past brains
+├── brain/[id]/page.tsx      Brain viewer (file tabs, share, API)
+├── brain/[id]/share/        Public read-only view
+└── api/
+    ├── chat/route.ts        Coaching chat (streams, tracks progress)
+    ├── generate/route.ts    Brain generation → BrainRecord
+    └── brain/[id]/api/      Public JSON endpoint per brain
 lib/
-├── ai.ts                  # AIML/OpenAI-compatible client
-├── auth.ts                # API auth verification helpers
-├── brain-generator.ts     # Brain generation and JSON normalization
-├── kv.ts                  # Supabase-backed storage adapter
-├── prompts.ts             # Coach and brain-generation prompts
-├── supabase.ts            # Server Supabase client
-├── supabase-browser.ts    # Browser Supabase client
-├── types.ts               # Shared TypeScript types
-└── utils.ts               # Shared helper functions
-
-supabase/
-└── migrations/            # Database schema and dashboard auth migration
+├── prompts.ts               Coaching system prompt + generation schema prompt
+├── brain-generator.ts       JSON parsing, normalization, validation
+├── ai.ts                    Model client (OpenRouter-compatible)
+├── kv.ts                    Supabase-backed session/brain store
+└── types.ts                 BrainRecord, SessionState, Process, Skill
+supabase/migrations/         sessions + brains tables
 ```
 
-## Quick Start
+**Stack:** Next.js 14 · TypeScript · Tailwind CSS · Supabase (Postgres + Auth) ·
+OpenRouter-compatible chat models · Vercel
 
-### Prerequisites
-
-- Node.js 20+
-- Supabase project
-- AIML API key
-- Vercel account for deployment
-
-### 1. Install Dependencies
+## Getting started
 
 ```bash
+git clone https://github.com/ShivamSoni20/Biz-Coach.git
+cd Biz-Coach
 npm install
 ```
 
-### 2. Configure Environment
+1. Create a Supabase project and run the migrations in `supabase/migrations/`.
+2. Copy `.env.example` → `.env.local` and fill in:
+   - `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`
+   - `AIML_API_KEY` (or any OpenRouter-compatible key), `AIML_API_BASE_URL`, `AIML_MODEL`
+3. `npm run dev` → http://localhost:3000
 
-```bash
-cp .env.example .env.local
-```
+## Roadmap → v2: the AI Engineer showcase
 
-Set the required values:
+Biz Coach is being upgraded into a portfolio centerpiece for Applied AI / AI Engineer roles:
 
-```env
-NEXT_PUBLIC_SUPABASE_URL=
-NEXT_PUBLIC_SUPABASE_ANON_KEY=
-SUPABASE_SERVICE_ROLE_KEY=
+- [ ] **RAG — "Ask your Company Brain."** Chunk brains into Supabase pgvector; cited Q&A
+      over company knowledge (`/brain/[id]/ask`).
+- [ ] **LangGraph multi-agent coaching.** Interviewer → completeness-checker → writer
+      agents with conditional edges and Supabase checkpointing.
+- [ ] **Agent harness.** JSON-schema-validated tool registry with dry-run mode and an
+      append-only audit log.
+- [ ] **Eval harness.** Golden Q&A set + faithfulness/citation metrics in CI
+      (`npm run eval`).
+- [ ] **Landing page refresh** in the Mark Lou style.
 
-AIML_API_KEY=
-AIML_API_BASE_URL=https://api.aimlapi.com/v1
-AIML_MODEL=openai/gpt-4o-mini
+Full details in [`plan/biz-coach-integration-plan.md`](./plan/biz-coach-integration-plan.md).
 
-NEXT_PUBLIC_APP_URL=http://localhost:3000
-```
+## License
 
-### 3. Run Locally
-
-```bash
-npm run dev
-```
-
-Open:
-
-```txt
-http://localhost:3000
-```
-
-## Database Setup
-
-Apply the Supabase migrations in order:
-
-```txt
-supabase/migrations/001_initial_schema.sql
-supabase/migrations/002_user_dashboard.sql
-```
-
-The schema creates:
-
-| Table | Purpose |
-| --- | --- |
-| `sessions` | Stores active and completed coaching sessions. |
-| `brains` | Stores generated Company Brain records and markdown outputs. |
-
-Verify recent sessions:
-
-```sql
-SELECT id, business_name, status, questions_answered
-FROM sessions
-ORDER BY created_at DESC
-LIMIT 5;
-```
-
-Verify generated brains:
-
-```sql
-SELECT id, business_name, business_type, session_duration
-FROM brains
-ORDER BY generated_at DESC
-LIMIT 5;
-```
-
-## Test Checklist
-
-- Landing page loads and CTAs work.
-- Login and signup work.
-- Dashboard shows user name and saved items.
-- Onboarding requires a business name.
-- Coach starts automatically after onboarding.
-- AI responses stream correctly.
-- Brain generation completes after the coaching flow.
-- Generated files are populated.
-- Download buttons work for markdown files and API payload.
-- Share page opens at `/brain/[id]/share`.
-- API endpoint returns JSON at `/brain/[id]/api`.
-- Mobile layout works on landing, onboarding, coach, dashboard, and brain pages.
-
-## Roadmap
-
-| Phase | Focus |
-| --- | --- |
-| Phase 1 | Stabilize MVP, polish dashboard, complete Supabase user-scoped history. |
-| Phase 2 | Add editable brain files and regenerated sections. |
-| Phase 3 | Add team workspaces and collaborator access. |
-| Phase 4 | Add integrations for Notion, Google Docs, Slack, and agent tools. |
-| Phase 5 | Add templates for agencies, freelancers, consultants, and startups. |
-
-## Useful Links
-
-- [OpenAI Platform](https://platform.openai.com/)
-- [AIML API](https://aimlapi.com/)
-- [Supabase Docs](https://supabase.com/docs)
-- [Next.js Docs](https://nextjs.org/docs)
-- [Vercel Analytics](https://vercel.com/docs/analytics)
-- [Tailwind CSS](https://tailwindcss.com/)
-
-## License & Credits
-
-Built for the OpenAI x Outskill Hackathon as an MVP.
-
-Created by Shivam Soni.
-
-OPT Coach turns scattered business knowledge into an AI-ready operating brain.
+MIT — build on it.
