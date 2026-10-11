@@ -253,7 +253,7 @@ export default function DashboardPage() {
                   title="No saved chats yet"
                 />
               ) : (
-                <div className="space-y-3">
+                <div className="max-h-[600px] space-y-3 overflow-y-auto pr-1">
                   {sessions.map((session) => {
                     const lastMessage = [...(session.messages ?? [])].reverse().find(Boolean);
                     return (
@@ -271,9 +271,9 @@ export default function DashboardPage() {
                             {session.business_type}
                           </span>
                         </div>
-                        <p className="mt-3 line-clamp-3 rounded-xl bg-ivory/60 p-3 text-[12px] leading-5 text-navy-lt">
-                          {lastMessage?.content || "Session started, no message captured yet."}
-                        </p>
+                        <div className="mt-3 max-h-32 overflow-y-auto rounded-xl bg-ivory/60 p-3 text-[12px] leading-5 text-navy-lt">
+                          <p className="whitespace-pre-wrap">{lastMessage?.content || "Session started, no message captured yet."}</p>
+                        </div>
                       </article>
                     );
                   })}

@@ -231,7 +231,7 @@ export default function CoachPage() {
         <div className="mx-auto flex w-full max-w-7xl flex-1">
           <ProgressSidebar questionsAnswered={questionsAnswered} />
 
-          <main className="flex min-h-[calc(100vh-73px)] flex-1 flex-col">
+          <main className="flex h-[calc(100vh-73px)] min-h-0 flex-1 flex-col overflow-hidden">
             <div className="border-b border-ivory-dk bg-white/40 px-4 py-3 lg:hidden">
               <div className="flex flex-wrap gap-2">
                 {mobileSteps.map((step, index) => {
@@ -255,8 +255,8 @@ export default function CoachPage() {
               </div>
             </div>
 
-            <div className="grid flex-1 gap-5 px-4 py-5 sm:px-6 xl:grid-cols-[minmax(0,1fr)_300px]">
-              <section className="flex min-h-[60vh] flex-col rounded-[20px] border border-ivory-dk bg-white/80 shadow-sm">
+            <div className="grid min-h-0 flex-1 gap-5 overflow-hidden px-4 py-5 sm:px-6 xl:grid-cols-[minmax(0,1fr)_300px]">
+              <section className="flex h-full min-h-0 flex-col rounded-[20px] border border-ivory-dk bg-white/80 shadow-sm">
                 <div className="border-b border-ivory-dk px-5 py-4">
                   <p className="text-[14px] font-semibold text-navy">Structured coaching</p>
                   <p className="mt-0.5 text-[12px] text-navy-lt">
@@ -316,7 +316,7 @@ export default function CoachPage() {
                 />
               </section>
 
-              <aside className="hidden space-y-4 xl:sticky xl:top-5 xl:block xl:self-start">
+              <aside className="hidden space-y-4 overflow-y-auto pr-1 xl:block xl:h-full">
                 <BrainPreview questionsAnswered={questionsAnswered} />
                 <div className="rounded-[20px] border border-ivory-dk bg-white/80 p-5">
                   <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-gold-dk">
