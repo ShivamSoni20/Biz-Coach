@@ -1,6 +1,6 @@
 import { getAiClient, AIML_MODEL } from "@/lib/ai";
 import { kvGet } from "@/lib/kv";
-import { searchBrainChunks, ingestBrain } from "@/lib/rag/ingest";
+import { searchBrainChunks, ingestBrain, extractBrainSections } from "@/lib/rag/ingest";
 import type { BrainRecord } from "@/lib/types";
 
 export async function POST(request: Request, { params }: { params: { id: string } }) {
@@ -21,13 +21,28 @@ export async function POST(request: Request, { params }: { params: { id: string 
 
     // If chunks are missing (e.g. legacy brain created before migration), perform automatic ingestion
     if (chunks.length === 0) {
-      await ingestBrain(brain);
-      chunks = await searchBrainChunks(brainId, question, 5);
+      try {
+        await ingestBrain(brain);
+        chunks = await searchBrainChunks(brainId, question, 5);
+      } catch (ingestErr) {
+        console.warn("Auto-ingestion skipped or failed:", ingestErr);
+      }
+    }
+
+    // Resilient Fallback: If vector search returned 0 chunks (e.g. Supabase table not migrated or embedding API down),
+    // extract direct chunks directly from the brain's existing markdown files so RAG never fails if info exists!
+    if (chunks.length === 0) {
+      const directSections = extractBrainSections(brain);
+      chunks = directSections.map((sec, idx) => ({
+        section: sec.section,
+        chunk_index: idx,
+        content: sec.content,
+      }));
     }
 
     const contextStr = chunks.length > 0
       ? chunks.map((c, i) => `[Source ${i + 1} - ${c.section}:chunk-${c.chunk_index}]\n${c.content}`).join("\n\n")
-      : "No specific vector chunks found. Use brain metadata if relevant.";
+      : "No specific source files found.";
 
     const systemPrompt = `You are Biz Coach RAG Assistant. Your job is to answer questions using strictly the provided Company Brain source chunks.
 
